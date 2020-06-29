@@ -8,12 +8,12 @@ namespace WOLtool
 {
     public class Net
     {
-        public static int WakeOnLan(string broadcastip, string macaddress)
+        public static int WakeOnLan(string ipaddress, string macaddress)
         {
             try
             {
                 Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                IPAddress ip = IPAddress.Parse(broadcastip);
+                IPAddress ip = IPAddress.Parse(ipaddress);
                 IPEndPoint ep1 = new IPEndPoint(ip, 7); // Port 7 common WOL port
                 IPEndPoint ep2 = new IPEndPoint(ip, 9); // Port 9 common WOL port
                 byte[] mp = BuildMagicPacket(macaddress);
@@ -33,15 +33,15 @@ namespace WOLtool
                 return -1;
             }
         }
-        private static byte[] BuildMagicPacket(string macAddress) // MacAddress in any standard HEX format
+        private static byte[] BuildMagicPacket(string macaddress) // MacAddress in any standard HEX format
         {
             try
             {
-                macAddress = Regex.Replace(macAddress, "[: -]", "");
+                macaddress = Regex.Replace(macaddress, "[: -]", "");
                 byte[] macBytes = new byte[6];
                 for (int i = 0; i < 6; i++)
                 {
-                    macBytes[i] = Convert.ToByte(macAddress.Substring(i * 2, 2), 16);
+                    macBytes[i] = Convert.ToByte(macaddress.Substring(i * 2, 2), 16);
                 }
 
                 using (MemoryStream ms = new MemoryStream())
