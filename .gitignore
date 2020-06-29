@@ -355,3 +355,13 @@ healthchecksdb
 /bin/Release/netcoreapp3.0/linux-x64/WOLtool.dll
 /bin/Release/netcoreapp3.0/linux-x64/WOLtool.deps.json
 /bin/Release/netcoreapp3.0/linux-x64/WOLtool
+/bin/Release/netcoreapp3.1/linux-x64/WOLtool.runtimeconfig.json
+/bin/Release/netcoreapp3.1/linux-x64/WOLtool.runtimeconfig.dev.json
+/bin/Release/netcoreapp3.1/linux-x64/WOLtool.dll
+/bin/Release/netcoreapp3.1/linux-x64/WOLtool.deps.json
+/bin/Release/netcoreapp3.1/linux-x64/WOLtool
+/bin/Release/netcoreapp3.1/osx-x64/WOLtool.runtimeconfig.json
+/bin/Release/netcoreapp3.1/osx-x64/WOLtool.runtimeconfig.dev.json
+/bin/Release/netcoreapp3.1/osx-x64/WOLtool.dll
+/bin/Release/netcoreapp3.1/osx-x64/WOLtool.deps.json
+/bin/Release/netcoreapp3.1/osx-x64/WOLtool

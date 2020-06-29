@@ -7,15 +7,14 @@ namespace WOLtool
 {
     class Program
     {
-        private static string szBroadcastIP, szMacAddress;
         static int Main(string[] args)
         {
             if (args.Length == 0) // No args provided, get user input
             {
                 Console.Write("Enter Broadcast IP: ");
-                szBroadcastIP = Console.ReadLine();
+                string szBroadcastIP = Console.ReadLine();
                 Console.Write("Enter MAC Address: ");
-                szMacAddress = Console.ReadLine();
+                string szMacAddress = Console.ReadLine();
                 return Net.WakeOnLan(szBroadcastIP, szMacAddress);
             }
             else if (args.Length == 2) // arg1 = Broadcast IP, arg2 = MAC Address

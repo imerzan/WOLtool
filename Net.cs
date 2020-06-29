@@ -14,7 +14,7 @@ namespace WOLtool
             {
                 Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp); // Create socket
                 sock.EnableBroadcast = true; // Enable broadcast, required for macOS compatibility 
-                IPAddress ip = IPAddress.Parse(ipaddress); // Parse IP Address
+                IPAddress ip = IPAddress.Parse(ipaddress);
                 IPEndPoint ep1 = new IPEndPoint(ip, 7); // Port 7 common WOL port
                 IPEndPoint ep2 = new IPEndPoint(ip, 9); // Port 9 common WOL port
                 byte[] mp = BuildMagicPacket(macaddress); // Get magic packet byte array based on MAC Address
@@ -22,8 +22,8 @@ namespace WOLtool
                 {
                     throw new NullReferenceException("BuildMagicPacket() returned null due to an exception. Please double check the MAC Address.");
                 }
-                sock.SendTo(mp, ep1); // Transmit to EndPoint 'ep1'
-                sock.SendTo(mp, ep2); // Transmit to EndPoint 'ep2'
+                sock.SendTo(mp, ep1); // Transmit Magic Packet on Port 7
+                sock.SendTo(mp, ep2); // Transmit Magic Packet on Port 9
                 sock.Close(); // Close socket
                 Console.WriteLine("Success!");
                 return 0;
