@@ -12,18 +12,19 @@ namespace WOLtool
         {
             try
             {
-                Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp);
-                IPAddress ip = IPAddress.Parse(ipaddress);
+                Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp); // Create socket
+                sock.EnableBroadcast = true; // Enable broadcast, required for macOS compatibility 
+                IPAddress ip = IPAddress.Parse(ipaddress); // Parse IP Address
                 IPEndPoint ep1 = new IPEndPoint(ip, 7); // Port 7 common WOL port
                 IPEndPoint ep2 = new IPEndPoint(ip, 9); // Port 9 common WOL port
-                byte[] mp = BuildMagicPacket(macaddress);
+                byte[] mp = BuildMagicPacket(macaddress); // Get magic packet byte array based on MAC Address
                 if (mp == null)
                 {
-                    throw new NullReferenceException("MagicPacket value is null, please check MAC Address.");
+                    throw new NullReferenceException("BuildMagicPacket() returned null due to an exception. Please double check the MAC Address.");
                 }
-                sock.SendTo(mp, ep1);
-                sock.SendTo(mp, ep2);
-                sock.Close();
+                sock.SendTo(mp, ep1); // Transmit to EndPoint 'ep1'
+                sock.SendTo(mp, ep2); // Transmit to EndPoint 'ep2'
+                sock.Close(); // Close socket
                 Console.WriteLine("Success!");
                 return 0;
             }
@@ -57,7 +58,7 @@ namespace WOLtool
                             bw.Write(macBytes);
                         }
                     }
-                    return ms.ToArray(); // 102 bytes magic packet
+                    return ms.ToArray(); // return 102 bytes magic packet
                 }
             }
             catch (Exception ex)

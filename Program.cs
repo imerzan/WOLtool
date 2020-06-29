@@ -10,7 +10,7 @@ namespace WOLtool
         private static string szBroadcastIP, szMacAddress;
         static int Main(string[] args)
         {
-            if (args.Length == 0) // No args, get user input
+            if (args.Length == 0) // No args provided, get user input
             {
                 Console.Write("Enter Broadcast IP: ");
                 szBroadcastIP = Console.ReadLine();
@@ -22,7 +22,7 @@ namespace WOLtool
             {
                 return Net.WakeOnLan(args[0], args[1]);
             }
-            else
+            else // Handle unexpected startup
             {
                 Console.WriteLine("Unexpected number of arguments.");
                 return -1;
