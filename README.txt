@@ -4,8 +4,8 @@ Instructions:
 
 2) Make sure you have the .NET Core Runtime (3.1 or newer) installed on the computer that will run WOLtool, see https://dotnet.microsoft.com/download
 
-3) Startup WOLtool, provide Broadcast IP Address (for example 192.168.1.255), and MAC Address of the remote computer's network card.
-  optional: You can also run the program from the command line: WOLtool.exe <BroadcastIP> <MACAddress>
+3) Startup WOLtool, provide MAC Address of the remote computer's network card.
+  optional: You can also run the program from the command line: WOLtool.exe <MACAddress>
   
 4) If Magic Packet broadcast is successful, you will receive a "Success!" message. As long as the remote computer is properly configured, it should wake.
 

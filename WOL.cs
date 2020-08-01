@@ -6,22 +6,18 @@ using System.IO;
 
 namespace WOLtool
 {
-    public class Net
+    public class WOL
     {
-        public static int WakeOnLan(string ipaddress, string macaddress)
+        public static int Send(string macaddress)
         {
             try
             {
                 Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp); // Create socket
                 sock.EnableBroadcast = true; // Enable broadcast, required for macOS compatibility 
-                IPAddress ip = IPAddress.Parse(ipaddress);
-                IPEndPoint ep1 = new IPEndPoint(ip, 7); // Port 7 common WOL port
-                IPEndPoint ep2 = new IPEndPoint(ip, 9); // Port 9 common WOL port
+                IPEndPoint ep1 = new IPEndPoint(IPAddress.Broadcast, 7); // Port 7 common WOL port
+                IPEndPoint ep2 = new IPEndPoint(IPAddress.Broadcast, 9); // Port 9 common WOL port
                 byte[] mp = BuildMagicPacket(macaddress); // Get magic packet byte array based on MAC Address
-                if (mp == null)
-                {
-                    throw new NullReferenceException("BuildMagicPacket() returned null due to an exception. Please double check the MAC Address.");
-                }
+                if (mp == null) return -1; // No magic packet, terminate program
                 sock.SendTo(mp, ep1); // Transmit Magic Packet on Port 7
                 sock.SendTo(mp, ep2); // Transmit Magic Packet on Port 9
                 sock.Close(); // Close socket
