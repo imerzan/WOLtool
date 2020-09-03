@@ -10,7 +10,7 @@
    - *(Optional)* You can run WOLtool from the command line: ```> woltool <MacAddress>```
 3) If Magic Packet broadcast is successful, you will receive a "Success!" message. As long as the remote computer is properly configured, it should wake.
 
-NOTE: To run on a macOS/Linux system you will need to run this from terminal/bash. Be sure you set the file permissions for WOLtool to be executable via terminal:
+**NOTE:** To run on a macOS/Linux system you will need to run this from terminal/bash. Be sure you set the file permissions for WOLtool to be executable via terminal:
 ```
 chmod 755 woltool
 sudo ./woltool
