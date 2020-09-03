@@ -13,8 +13,8 @@ namespace WOLtool
             if (args.Length == 0) // No args provided, get user input
             {
                 Console.Write("Enter MAC Address: ");
-                string szMacAddress = Console.ReadLine();
-                return WOL.Send(szMacAddress);
+                string mac = Console.ReadLine();
+                return WOL.Send(mac);
             }
             else if (args.Length == 1) // arg1 = MAC Address
             {
