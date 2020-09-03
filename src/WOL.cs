@@ -12,15 +12,17 @@ namespace WOLtool
         {
             try
             {
-                Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp); // Create socket
-                sock.EnableBroadcast = true; // Enable broadcast, required for macOS compatibility 
-                IPEndPoint ep1 = new IPEndPoint(IPAddress.Broadcast, 7); // Port 7 common WOL port
-                IPEndPoint ep2 = new IPEndPoint(IPAddress.Broadcast, 9); // Port 9 common WOL port
-                byte[] mp = BuildMagicPacket(macaddress); // Get magic packet byte array based on MAC Address
-                if (mp == null) throw new NullReferenceException("Magic Packet value is null. Please verify MAC Address is entered/formatted correctly.");
-                sock.SendTo(mp, ep1); // Transmit Magic Packet on Port 7
-                sock.SendTo(mp, ep2); // Transmit Magic Packet on Port 9
-                sock.Close(); // Close socket
+                using (Socket sock = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, ProtocolType.Udp)) // Create socket
+                {
+                    sock.EnableBroadcast = true; // Enable broadcast, required for macOS compatibility 
+                    IPEndPoint ep1 = new IPEndPoint(IPAddress.Broadcast, 7); // Port 7 common WOL port
+                    IPEndPoint ep2 = new IPEndPoint(IPAddress.Broadcast, 9); // Port 9 common WOL port
+                    byte[] mp = BuildMagicPacket(macaddress); // Get magic packet byte array based on MAC Address
+                    if (mp == null) throw new NullReferenceException("Magic Packet value is null. Please verify MAC Address is entered/formatted correctly.");
+                    sock.SendTo(mp, ep1); // Transmit Magic Packet on Port 7
+                    sock.SendTo(mp, ep2); // Transmit Magic Packet on Port 9
+                    sock.Close(); // Close socket
+                }
                 Console.WriteLine("Success!");
                 return 0;
             }
