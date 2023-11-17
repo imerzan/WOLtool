@@ -3,13 +3,14 @@ using System.Net;
 using System.Net.Sockets;
 using System.Net.NetworkInformation;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace WOLtool
 {
     public class WakeOnLan : IDisposable
     {
         private readonly Socket _sock;
-        private static readonly IPEndPoint[] _endpoints = new IPEndPoint[]
+        private static readonly IReadOnlyList<IPEndPoint> _endpoints = new List<IPEndPoint>
         {
             new IPEndPoint(IPAddress.Broadcast, 7), // echo
             new IPEndPoint(IPAddress.Broadcast, 9) // discard
@@ -36,7 +37,7 @@ namespace WOLtool
             }
             catch (Exception ex)
             {
-                throw new WakeOnLanException("ERROR broadcasting WakeOnLan Magic Packet.", ex);
+                throw new InvalidOperationException("ERROR broadcasting WakeOnLan Magic Packet.", ex);
             }
         }
         public void Send(PhysicalAddress macAddress)
@@ -51,7 +52,7 @@ namespace WOLtool
             }
             catch (Exception ex)
             {
-                throw new WakeOnLanException("ERROR broadcasting WakeOnLan Magic Packet.", ex);
+                throw new InvalidOperationException("ERROR broadcasting WakeOnLan Magic Packet.", ex);
             }
         }
 
@@ -68,7 +69,7 @@ namespace WOLtool
             }
             catch (Exception ex)
             {
-                throw new WakeOnLanException("ERROR broadcasting WakeOnLan Magic Packet.", ex);
+                throw new InvalidOperationException("ERROR broadcasting WakeOnLan Magic Packet.", ex);
             }
         }
         public async Task SendAsync(PhysicalAddress macAddress)
@@ -83,7 +84,7 @@ namespace WOLtool
             }
             catch (Exception ex)
             {
-                throw new WakeOnLanException("ERROR broadcasting WakeOnLan Magic Packet.", ex);
+                throw new InvalidOperationException("ERROR broadcasting WakeOnLan Magic Packet.", ex);
             }
         }
 
@@ -102,7 +103,7 @@ namespace WOLtool
             return magicPacket; // 102 Byte Magic Packet
         }
 
-        // Public implementation of Dispose pattern callable by consumers.
+        #region IDisposable
         private bool _disposed = false;
         public void Dispose() => Dispose(true);
 
@@ -110,34 +111,13 @@ namespace WOLtool
         protected virtual void Dispose(bool disposing)
         {
             if (_disposed)
-            {
                 return;
-            }
-
             if (disposing)
             {
-                // Dispose managed state (managed objects).
                 _sock?.Dispose();
             }
-
             _disposed = true;
         }
-    }
-
-    public class WakeOnLanException : Exception
-    {
-        public WakeOnLanException()
-        {
-        }
-
-        public WakeOnLanException(string message)
-            : base(message)
-        {
-        }
-
-        public WakeOnLanException(string message, Exception inner)
-            : base(message, inner)
-        {
-        }
+        #endregion
     }
 }

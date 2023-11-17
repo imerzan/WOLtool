@@ -12,8 +12,9 @@ namespace WOLtool
                 while (true) // Continue prompting user until no more input is received
                 {
                     Console.Write("Enter MAC Address: ");
-                    string mac = Console.ReadLine().Trim();
-                    if (mac == String.Empty) break; // User is done, exit
+                    string mac = Console.ReadLine()?.Trim();
+                    if (string.IsNullOrEmpty(mac)) 
+                        break; // User is done, exit
                     try
                     {
                         wol.Send(mac);
