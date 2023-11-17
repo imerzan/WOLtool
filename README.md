@@ -1,11 +1,10 @@
 # WOLtool
-.NET Core Wake-On-Lan console utility.
+.NET8 AOT Wake-On-Lan console utility.
 
 ## Instructions:
 
 1) Make sure the remote computer has Wake-On-Lan enabled in the System BIOS, and the remote network adapter supports WOL and has it enabled.
 2) Startup WOLtool, provide MAC Address of the remote computer's network card.
-   - Be sure you have the [.NET6](https://dotnet.microsoft.com/download) or newer runtime installed.
    - *(Optional)* You can run WOLtool from the command line: ```woltool <MacAddress1> <MacAddress2> <MacAddress3>...``` Multiple MAC Addresses are supported.
 3) If Magic Packet broadcast is successful, you will receive a 'OK' message. As long as the remote computer is properly configured, it should wake ([See Considerations](https://github.com/imerzan/WOLtool#considerations)).
 
